@@ -33,7 +33,7 @@ public class AuthServiceImpl implements AuthService {
 
     private final UserService userService;
 
-    private final static String USERS_URL = "http://localhost:9090/users";
+    private final static String USERS_URL = "http://localhost:9090/api/v1/users";
 
     @Override
     public ResponseDto<String> save(User user) {
