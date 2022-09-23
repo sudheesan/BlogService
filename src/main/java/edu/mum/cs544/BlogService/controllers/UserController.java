@@ -49,7 +49,7 @@ public class UserController {
     }
 
     @GetMapping("/posts")
-    public ResponseEntity<ResponseDto<List<UserPostDto>>> getAllPosts(@PathVariable int id) {
+    public ResponseEntity<ResponseDto<List<UserPostDto>>> getAllPosts() {
         List<UserPostDto> posts = userService.getAllPosts();
         return ResponseEntity.ok().body(new ResponseDto<>("Users post", false, posts, null));
     }
