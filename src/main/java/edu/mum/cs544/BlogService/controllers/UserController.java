@@ -2,6 +2,7 @@ package edu.mum.cs544.BlogService.controllers;
 
 import edu.mum.cs544.BlogService.dtos.ResponseDto;
 import edu.mum.cs544.BlogService.dtos.UserDto;
+import edu.mum.cs544.BlogService.dtos.UserPostDto;
 import edu.mum.cs544.BlogService.models.User;
 import edu.mum.cs544.BlogService.services.UserService;
 import lombok.RequiredArgsConstructor;
@@ -45,5 +46,17 @@ public class UserController {
     public ResponseEntity<ResponseDto<UserDto>> deleteUser(@PathVariable int id) {
         UserDto user = userService.deleteUser(id);
         return ResponseEntity.ok().body(new ResponseDto<>("Deleted user", false, user, null));
+    }
+
+    @GetMapping("/posts")
+    public ResponseEntity<ResponseDto<List<UserPostDto>>> getAllPosts(@PathVariable int id) {
+        List<UserPostDto> posts = userService.getAllPosts();
+        return ResponseEntity.ok().body(new ResponseDto<>("Users post", false, posts, null));
+    }
+
+    @GetMapping("/{id}/posts")
+    public ResponseEntity<ResponseDto<List<UserPostDto>>> getAllPostsById(@PathVariable int id) {
+        List<UserPostDto> posts = userService.getAllPostsById(id);
+        return ResponseEntity.ok().body(new ResponseDto<>("User posts", false, posts, null));
     }
 }

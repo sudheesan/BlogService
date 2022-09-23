@@ -1,9 +1,7 @@
 package edu.mum.cs544.BlogService.services;
 
-import edu.mum.cs544.BlogService.dtos.LoginRequest;
-import edu.mum.cs544.BlogService.dtos.LoginResponse;
-import edu.mum.cs544.BlogService.dtos.ResponseDto;
-import edu.mum.cs544.BlogService.dtos.UserDto;
+import edu.mum.cs544.BlogService.dtos.*;
+import edu.mum.cs544.BlogService.models.Post;
 import edu.mum.cs544.BlogService.models.User;
 
 import java.util.List;
@@ -14,4 +12,6 @@ public interface UserService {
     public List<UserDto> getAllUsers();
     public UserDto deleteUser(int id);
     public UserDto update(UserDto user, int id);
+    public List<UserPostDto> getAllPosts();
+    public List<UserPostDto> getAllPostsById(int id);
 }
