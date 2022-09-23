@@ -1,7 +1,6 @@
 package edu.mum.cs544.BlogService.services;
 
 import edu.mum.cs544.BlogService.dtos.*;
-import edu.mum.cs544.BlogService.models.Post;
 import edu.mum.cs544.BlogService.models.User;
 
 import java.util.List;

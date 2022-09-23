@@ -5,7 +5,6 @@ import edu.mum.cs544.BlogService.dtos.LoginResponse;
 import edu.mum.cs544.BlogService.dtos.ResponseDto;
 import edu.mum.cs544.BlogService.models.User;
 import edu.mum.cs544.BlogService.services.AuthService;
-import edu.mum.cs544.BlogService.services.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
