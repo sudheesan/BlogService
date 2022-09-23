@@ -1,5 +1,6 @@
 package edu.mum.cs544.BlogService;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -15,4 +16,8 @@ public class BlogServiceApplication {
 		return new RestTemplate();
 	}
 
+	@Bean
+	public ModelMapper getModelMapper(){
+		return new ModelMapper();
+	}
 }
