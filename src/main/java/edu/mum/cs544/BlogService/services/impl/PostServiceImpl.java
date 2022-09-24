@@ -44,12 +44,12 @@ public class PostServiceImpl implements PostService {
     @Override
     public UserPostDto getById(int id) {
         try {
-            ParameterizedTypeReference<ResponseDto<UserPostDto>> parameterizedTypeReference = new ParameterizedTypeReference<ResponseDto<UserPostDto>>() {
+            ParameterizedTypeReference<Post> parameterizedTypeReference = new ParameterizedTypeReference<Post>() {
             };
-            ResponseEntity<ResponseDto<UserPostDto>> response = restTemplate.exchange(POSTS_URL + "/{id}",
+            ResponseEntity<Post> response = restTemplate.exchange(POSTS_URL + "/{id}",
                     HttpMethod.GET, null, parameterizedTypeReference, id);
-            ResponseDto<UserPostDto> userResponse = response.getBody();
-            return userResponse.getResponse();
+            Post userResponse = response.getBody();
+            return modelMapper.map(userResponse, UserPostDto.class);
         } catch (HttpClientErrorException ex) {
             throw ex;
         }
