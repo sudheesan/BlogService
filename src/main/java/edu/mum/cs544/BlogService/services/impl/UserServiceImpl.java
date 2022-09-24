@@ -108,13 +108,13 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<UserPostDto> getAllPosts() {
         var user = (BlogUserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        var postList = postService.getAllPostsById(user.getId());
+        var postList = postService.getAllPostsByUserId(user.getId());
         return  postList;
     }
 
     @Override
-    public List<UserPostDto> getAllPostsById(int id) {
-        var postList = postService.getAllPostsById(id);
+    public List<UserPostDto> getAllPostsByUserId(int id) {
+        var postList = postService.getAllPostsByUserId(id);
         return  postList;
     }
 

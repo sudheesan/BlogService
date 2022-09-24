@@ -37,7 +37,7 @@ public class UserController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ResponseDto<UserDto>> updateUser(@RequestBody UserDto userDto,@PathVariable int id) {
+    public ResponseEntity<ResponseDto<UserDto>> updateUser(@RequestBody UserDto userDto, @PathVariable int id) {
         UserDto user = userService.update(userDto, id);
         return ResponseEntity.ok().body(new ResponseDto<>("Updated user", false, user, null));
     }
@@ -56,7 +56,7 @@ public class UserController {
 
     @GetMapping("/{id}/posts")
     public ResponseEntity<ResponseDto<List<UserPostDto>>> getAllPostsById(@PathVariable int id) {
-        List<UserPostDto> posts = userService.getAllPostsById(id);
+        List<UserPostDto> posts = userService.getAllPostsByUserId(id);
         return ResponseEntity.ok().body(new ResponseDto<>("User posts", false, posts, null));
     }
 }

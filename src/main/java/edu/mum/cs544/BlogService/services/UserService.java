@@ -12,5 +12,5 @@ public interface UserService {
     public UserDto deleteUser(int id);
     public UserDto update(UserDto user, int id);
     public List<UserPostDto> getAllPosts();
-    public List<UserPostDto> getAllPostsById(int id);
+    public List<UserPostDto> getAllPostsByUserId(int id);
 }
