@@ -1,5 +1,6 @@
 package edu.mum.cs544.BlogService.services.impl;
 
+import edu.mum.cs544.BlogService.dtos.ResponseDto;
 import edu.mum.cs544.BlogService.dtos.UserPostDto;
 import edu.mum.cs544.BlogService.models.Post;
 import edu.mum.cs544.BlogService.services.PostService;
@@ -37,4 +38,23 @@ public class PostServiceImpl implements PostService {
             throw ex;
         }
     }
+
+
+    @Override
+    public UserPostDto getPostById(int id) {
+        try {
+            ParameterizedTypeReference<ResponseDto<UserPostDto>> parameterizedTypeReference = new ParameterizedTypeReference<ResponseDto<UserPostDto>>() {
+            };
+            ResponseEntity<ResponseDto<UserPostDto>> response =
+                    restTemplate.exchange(POSTS_URL + "/{id}", HttpMethod.GET, null, parameterizedTypeReference, id);
+            ResponseDto<UserPostDto> usersResponse = response.getBody();
+            return usersResponse.getResponse();
+
+        } catch (HttpClientErrorException ex) {
+            throw ex;
+        }
+    }
+
+
+
 }
