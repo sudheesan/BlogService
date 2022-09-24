@@ -9,6 +9,7 @@ import edu.mum.cs544.BlogService.security.BlogUserDetails;
 import edu.mum.cs544.BlogService.services.PostService;
 import edu.mum.cs544.BlogService.services.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
@@ -27,9 +28,8 @@ public class UserServiceImpl implements UserService {
 
     private final PostService postService;
     private final RestTemplate restTemplate;
-
-    private final static String USERS_URL = "http://localhost:9090/api/v1/users";
-
+    @Value("${service.user.url}")
+    private String USERS_URL;
 
     @Override
     public User loadUserByUsername(String username) {

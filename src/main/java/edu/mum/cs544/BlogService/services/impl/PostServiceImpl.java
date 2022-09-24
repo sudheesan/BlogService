@@ -6,6 +6,7 @@ import edu.mum.cs544.BlogService.models.Post;
 import edu.mum.cs544.BlogService.services.PostService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
@@ -23,8 +24,9 @@ public class PostServiceImpl implements PostService {
 
     private final RestTemplate restTemplate;
     private final ModelMapper modelMapper;
+    @Value("${service.post.url}")
+    private String POSTS_URL;
 
-    private final static String POSTS_URL = "http://localhost:7070/api/v1/posts";
 
     @Override
     public List<UserPostDto> getAllPostsByUserId(int id) {

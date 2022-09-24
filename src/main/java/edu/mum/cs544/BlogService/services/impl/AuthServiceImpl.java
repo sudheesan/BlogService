@@ -7,6 +7,7 @@ import edu.mum.cs544.BlogService.helpers.JwtHelper;
 import edu.mum.cs544.BlogService.models.User;
 import edu.mum.cs544.BlogService.services.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
@@ -26,14 +27,16 @@ import java.util.Map;
 @Service
 @RequiredArgsConstructor
 public class AuthServiceImpl implements AuthService {
+
     private final RestTemplate restTemplate;
     private final AuthenticationManager authenticationManager;
     private final PasswordEncoder passwordEncoder;
     private final JwtHelper jwtHelper;
 
     private final UserService userService;
+    @Value("${service.user.url}")
+    private String USERS_URL;
 
-    private final static String USERS_URL = "http://localhost:9090/api/v1/users";
 
     @Override
     public ResponseDto<String> save(User user) {
