@@ -10,7 +10,7 @@ public interface UserService {
     public UserDto getUserById(int id);
     public List<UserDto> getAllUsers();
     public UserDto deleteUser(int id);
-    public UserDto update(UserDto user, int id);
+    public UserDto update(UserDto user);
     public List<UserPostDto> getAllPosts();
     public List<UserPostDto> getAllPostsByUserId(int id);
 }
