@@ -109,6 +109,7 @@ public class UserServiceImpl implements UserService {
     public List<UserPostDto> getAllPosts() {
         var user = (BlogUserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         var postList = postService.getAllPostsByUserId(user.getId());
+        //var postList = postService.getAllPosts();// can return all posts for admin.
         return  postList;
     }
 
