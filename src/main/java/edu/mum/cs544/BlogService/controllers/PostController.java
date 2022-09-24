@@ -38,19 +38,19 @@ public class PostController {
     @PutMapping("/{id}")
     public ResponseEntity<ResponseDto<UserPostDto>> updatePost(@RequestBody UserPostDto postDto, @PathVariable int id) {
         UserPostDto post = postService.update(postDto, id);
-        return ResponseEntity.ok().body(new ResponseDto<>("Updated post", false, post, null));
+        return ResponseEntity.ok().body(new ResponseDto<>("Post Updated", false, post, null));
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<ResponseDto<UserPostDto>> deletePost(@PathVariable int id) {
         UserPostDto post = postService.delete(id);
-        return ResponseEntity.ok().body(new ResponseDto<>("Deleted post", false, post, null));
+        return ResponseEntity.ok().body(new ResponseDto<>("Post deleted", false, post, null));
     }
 
     @PostMapping("/add")
     public ResponseEntity<ResponseDto<UserPostDto>> addPost(@RequestBody UserPostDto postDto) {
         UserPostDto post = postService.add(postDto);
-        return ResponseEntity.ok().body(new ResponseDto<>("Add post", false, post, null));
+        return ResponseEntity.ok().body(new ResponseDto<>("Post added", false, post, null));
     }
 
     //--getAllPosts in UserController.java    
