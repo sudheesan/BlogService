@@ -53,13 +53,7 @@ public class PostController {
         return ResponseEntity.ok().body(new ResponseDto<>("Add post", false, post, null));
     }
 
-    ////--Done in UserController.java--
-    // @GetMapping("/posts")
-    // public ResponseEntity<ResponseDto<List<UserPostDto>>> getAllPosts() {        
-    //     var user = (BlogUserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-    //     List<UserPostDto> posts = postService.getAllPostsByUserId(user.getId());
-    //     return ResponseEntity.ok().body(new ResponseDto<>("User posts", false, posts, null));
-    // }
+    //--getAllPosts in UserController.java    
 
 
 }
