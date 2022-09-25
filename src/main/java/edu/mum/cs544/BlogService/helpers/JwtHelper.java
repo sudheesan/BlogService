@@ -1,6 +1,7 @@
 package edu.mum.cs544.BlogService.helpers;
 
 import io.jsonwebtoken.*;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
@@ -8,15 +9,18 @@ import java.util.Map;
 
 @Component
 public class JwtHelper {
-    private final String secret = "top-secret";
-    private final long expirataion = 15 * 60000;
+
+    @Value("${auth.jwt.secret}")
+    private String secret;
+    @Value("${auth.jwt.timeout}")
+    private long tokenExpiration;
 
     public String generateToken(String email, Map<String, Object> claimMap) {
-        return Jwts.builder().setClaims(claimMap).setSubject(email).setIssuedAt(new Date()).setExpiration(new Date(System.currentTimeMillis() + expirataion)).signWith(SignatureAlgorithm.HS512, secret).compact();
+        return Jwts.builder().setClaims(claimMap).setSubject(email).setIssuedAt(new Date()).setExpiration(new Date(System.currentTimeMillis() + tokenExpiration)).signWith(SignatureAlgorithm.HS512, secret).compact();
     }
 
     public String generateRefreshToken(String email) {
-        return Jwts.builder().setSubject(email).setIssuedAt(new Date()).setExpiration(new Date(System.currentTimeMillis() + expirataion * 60)).signWith(SignatureAlgorithm.HS512, secret).compact();
+        return Jwts.builder().setSubject(email).setIssuedAt(new Date()).setExpiration(new Date(System.currentTimeMillis() + tokenExpiration * 60)).signWith(SignatureAlgorithm.HS512, secret).compact();
     }
 
     public String getSubject(String token) {
@@ -42,7 +46,7 @@ public class JwtHelper {
     }
 
     public String doGenerateRefreshToken(Map<String, Object> claims, String subject) {
-        return Jwts.builder().setClaims(claims).setSubject(subject).setIssuedAt(new Date(System.currentTimeMillis())).setExpiration(new Date(System.currentTimeMillis() + expirataion)).signWith(SignatureAlgorithm.HS512, secret).compact();
+        return Jwts.builder().setClaims(claims).setSubject(subject).setIssuedAt(new Date(System.currentTimeMillis())).setExpiration(new Date(System.currentTimeMillis() + tokenExpiration)).signWith(SignatureAlgorithm.HS512, secret).compact();
     }
 
 

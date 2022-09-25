@@ -20,4 +20,5 @@ public class BlogServiceApplication {
 	public ModelMapper getModelMapper(){
 		return new ModelMapper();
 	}
+
 }

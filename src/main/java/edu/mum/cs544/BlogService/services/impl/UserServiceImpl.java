@@ -9,6 +9,7 @@ import edu.mum.cs544.BlogService.security.BlogUserDetails;
 import edu.mum.cs544.BlogService.services.PostService;
 import edu.mum.cs544.BlogService.services.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
@@ -27,9 +28,8 @@ public class UserServiceImpl implements UserService {
 
     private final PostService postService;
     private final RestTemplate restTemplate;
-
-    private final static String USERS_URL = "http://localhost:9090/api/v1/users";
-
+    @Value("${service.user.url}")
+    private String USERS_URL;
 
     @Override
     public User loadUserByUsername(String username) {
@@ -90,13 +90,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDto update(UserDto user, int id) {
+    public UserDto update(UserDto user) {
         try {
             ParameterizedTypeReference<ResponseDto<UserDto>> parameterizedTypeReference = new ParameterizedTypeReference<ResponseDto<UserDto>>() {
             };
+            var currentUser = (BlogUserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
             HttpEntity<UserDto> request = new HttpEntity<>(user);
             ResponseEntity<ResponseDto<UserDto>> response =
-                    restTemplate.exchange(USERS_URL+"/{id}", HttpMethod.PUT, request, parameterizedTypeReference, id);
+                    restTemplate.exchange(USERS_URL+"/{id}", HttpMethod.PUT, request, parameterizedTypeReference, currentUser.getId());
             ResponseDto<UserDto> userResponse = response.getBody();
             return userResponse.getResponse();
         } catch (HttpClientErrorException ex) {
@@ -109,7 +110,6 @@ public class UserServiceImpl implements UserService {
     public List<UserPostDto> getAllPosts() {
         var user = (BlogUserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         var postList = postService.getAllPostsByUserId(user.getId());
-        //var postList = postService.getAllPosts();// can return all posts for admin.
         return  postList;
     }
 

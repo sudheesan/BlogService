@@ -7,6 +7,7 @@ import edu.mum.cs544.BlogService.security.BlogUserDetails;
 import edu.mum.cs544.BlogService.services.PostService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
@@ -25,8 +26,9 @@ public class PostServiceImpl implements PostService {
 
     private final RestTemplate restTemplate;
     private final ModelMapper modelMapper;
+    @Value("${service.post.url}")
+    private String POSTS_URL;
 
-    private final static String POSTS_URL = "http://localhost:7070/api/v1/posts";
 
     @Override
     public List<UserPostDto> getAllPostsByUserId(int id) {
@@ -76,7 +78,7 @@ public class PostServiceImpl implements PostService {
             ParameterizedTypeReference<ResponseDto<UserPostDto>> parameterizedTypeReference = new ParameterizedTypeReference<ResponseDto<UserPostDto>>() {
             };
             ResponseEntity<ResponseDto<UserPostDto>> response = restTemplate.exchange(POSTS_URL + "/delete/{id}",
-                    HttpMethod.GET, null, parameterizedTypeReference, id);
+                    HttpMethod.DELETE, null, parameterizedTypeReference, id);
             ResponseDto<UserPostDto> userResponse = response.getBody();
             return userResponse.getResponse();
         } catch (HttpClientErrorException ex) {
@@ -85,7 +87,7 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public UserPostDto update(UserPostDto postDto, int id) {
+    public UserPostDto update(UserPostDto postDto) {
         try {
             ParameterizedTypeReference<ResponseDto<UserPostDto>> parameterizedTypeReference = new ParameterizedTypeReference<ResponseDto<UserPostDto>>() {
             };
@@ -95,7 +97,7 @@ public class PostServiceImpl implements PostService {
 
             HttpEntity<Post> request = new HttpEntity<>(post);
             ResponseEntity<ResponseDto<UserPostDto>> response = restTemplate.exchange(POSTS_URL + "/update/{id}",
-                    HttpMethod.POST, request, parameterizedTypeReference, id);
+                    HttpMethod.PUT, request, parameterizedTypeReference, post.getId());
             ResponseDto<UserPostDto> userResponse = response.getBody();
             return userResponse.getResponse();
         } catch (HttpClientErrorException ex) {

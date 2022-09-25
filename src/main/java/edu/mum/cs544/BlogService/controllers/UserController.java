@@ -17,11 +17,14 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UserController {
     private final UserService userService;
-    private ModelMapper modelMapper;
+    private final ModelMapper modelMapper;
 
     @GetMapping("/getUserByUsername")
     public ResponseEntity<ResponseDto<UserDto>> getUserByUserName(@RequestParam String username) {
         User user = userService.loadUserByUsername(username);
+        if(user == null){
+            return ResponseEntity.ok().body(new ResponseDto<UserDto>("User", false, null, null)) ;
+        }
         return ResponseEntity.ok().body(new ResponseDto<UserDto>("User", false, modelMapper.map(user, UserDto.class), null)) ;
     }
 
@@ -36,9 +39,9 @@ public class UserController {
         return new ResponseDto<>("User", false, user, null);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<ResponseDto<UserDto>> updateUser(@RequestBody UserDto userDto, @PathVariable int id) {
-        UserDto user = userService.update(userDto, id);
+    @PutMapping()
+    public ResponseEntity<ResponseDto<UserDto>> updateUser(@RequestBody UserDto userDto) {
+        UserDto user = userService.update(userDto);
         return ResponseEntity.ok().body(new ResponseDto<>("Updated user", false, user, null));
     }
 
@@ -49,7 +52,9 @@ public class UserController {
     }
 
     @GetMapping("/posts")
-    public ResponseEntity<ResponseDto<List<UserPostDto>>> getAllPosts() {
+    public ResponseEntity<ResponseDto<List<UserPostDto>>> getAllPosts(
+
+    ) {
         List<UserPostDto> posts = userService.getAllPosts();
         return ResponseEntity.ok().body(new ResponseDto<>("Users post", false, posts, null));
     }
