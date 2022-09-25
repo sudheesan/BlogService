@@ -78,7 +78,7 @@ public class PostServiceImpl implements PostService {
             ParameterizedTypeReference<ResponseDto<UserPostDto>> parameterizedTypeReference = new ParameterizedTypeReference<ResponseDto<UserPostDto>>() {
             };
             ResponseEntity<ResponseDto<UserPostDto>> response = restTemplate.exchange(POSTS_URL + "/delete/{id}",
-                    HttpMethod.GET, null, parameterizedTypeReference, id);
+                    HttpMethod.DELETE, null, parameterizedTypeReference, id);
             ResponseDto<UserPostDto> userResponse = response.getBody();
             return userResponse.getResponse();
         } catch (HttpClientErrorException ex) {
@@ -97,7 +97,7 @@ public class PostServiceImpl implements PostService {
 
             HttpEntity<Post> request = new HttpEntity<>(post);
             ResponseEntity<ResponseDto<UserPostDto>> response = restTemplate.exchange(POSTS_URL + "/update/{id}",
-                    HttpMethod.POST, request, parameterizedTypeReference, id);
+                    HttpMethod.PUT, request, parameterizedTypeReference, id);
             ResponseDto<UserPostDto> userResponse = response.getBody();
             return userResponse.getResponse();
         } catch (HttpClientErrorException ex) {
