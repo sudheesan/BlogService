@@ -17,11 +17,14 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UserController {
     private final UserService userService;
-    private ModelMapper modelMapper;
+    private final ModelMapper modelMapper;
 
     @GetMapping("/getUserByUsername")
     public ResponseEntity<ResponseDto<UserDto>> getUserByUserName(@RequestParam String username) {
         User user = userService.loadUserByUsername(username);
+        if(user == null){
+            return ResponseEntity.ok().body(new ResponseDto<UserDto>("User", false, null, null)) ;
+        }
         return ResponseEntity.ok().body(new ResponseDto<UserDto>("User", false, modelMapper.map(user, UserDto.class), null)) ;
     }
 
