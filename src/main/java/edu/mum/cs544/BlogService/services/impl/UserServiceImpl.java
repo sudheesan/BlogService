@@ -62,12 +62,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<UserDto> filterUsersByUserName(String username) {
+    public List<UserDto> filterUsersByUserName(String username, String firstname) {
         try {
             ParameterizedTypeReference<ResponseDto<List<UserDto>>> parameterizedTypeReference = new ParameterizedTypeReference<ResponseDto<List<UserDto>>>() {
             };
             ResponseEntity<ResponseDto<List<UserDto>>> response =
-                    restTemplate.exchange(USERS_URL + "/filterUsersByUsername?username={username}", HttpMethod.GET, null, parameterizedTypeReference, username);
+                    restTemplate.exchange(USERS_URL + "/filterUsersByUsername?username={username}&firstname={firstname}", HttpMethod.GET, null, parameterizedTypeReference, username,firstname);
             ResponseDto<List<UserDto>> usersResponse = response.getBody();
             return usersResponse.getResponse();
         } catch (HttpClientErrorException ex) {

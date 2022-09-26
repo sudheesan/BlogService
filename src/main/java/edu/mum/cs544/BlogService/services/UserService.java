@@ -14,6 +14,6 @@ public interface UserService {
     public List<UserPostDto> getAllPosts();
     public List<UserPostDto> getAllPostsByUserId(int id);
 
-    public List<UserDto> filterUsersByUserName(String username);
+    public List<UserDto> filterUsersByUserName(String username, String firstname);
 
 }

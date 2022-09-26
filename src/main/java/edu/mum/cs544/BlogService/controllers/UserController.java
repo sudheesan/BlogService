@@ -29,8 +29,8 @@ public class UserController {
     }
 
     @GetMapping("/filterUsersByUsername")
-    public ResponseEntity<ResponseDto<List<UserDto>>> filterUsersByUserName(@RequestParam String username) {
-        List<UserDto> users = userService.filterUsersByUserName(username);
+    public ResponseEntity<ResponseDto<List<UserDto>>> filterUsersByUserName(@RequestParam String username, @RequestParam String firstname) {
+        List<UserDto> users = userService.filterUsersByUserName(username, firstname);
         return ResponseEntity.ok().body(new ResponseDto<>("Users", false, users, null)) ;
     }
 
