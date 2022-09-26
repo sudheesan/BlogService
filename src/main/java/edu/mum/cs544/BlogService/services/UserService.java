@@ -13,4 +13,7 @@ public interface UserService {
     public UserDto update(UserDto user);
     public List<UserPostDto> getAllPosts();
     public List<UserPostDto> getAllPostsByUserId(int id);
+
+    public List<UserDto> filterUsersByUserName(String username);
+
 }
